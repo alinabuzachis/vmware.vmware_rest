@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -eux
-source ../init.sh
+source init.sh
 exec ansible-playbook playbook.yaml
