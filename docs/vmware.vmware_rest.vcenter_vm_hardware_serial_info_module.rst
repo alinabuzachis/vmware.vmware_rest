@@ -8,7 +8,7 @@ vmware.vmware_rest.vcenter_vm_hardware_serial_info
 **Returns information about a virtual serial port.**
 
 
-Version added: 2.3.0
+Version added: 0.1.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -68,7 +68,8 @@ Parameters
                 <td>
                 </td>
                 <td>
-                        <div>Virtual serial port identifier. Required with <em>state=[&#x27;get&#x27;]</em></div>
+                        <div>Virtual serial port identifier.</div>
+                        <div>The parameter must be the id of a resource returned by <span class='module'>vmware.vmware_rest.vcenter_vm_hardware_serial</span>. Required with <em>state=[&#x27;get&#x27;]</em></div>
                 </td>
             </tr>
             <tr>
@@ -192,7 +193,8 @@ Parameters
                 <td>
                 </td>
                 <td>
-                        <div>Virtual machine identifier. This parameter is mandatory.</div>
+                        <div>Virtual machine identifier.</div>
+                        <div>The parameter must be the id of a resource returned by <span class='module'>vmware.vmware_rest.vcenter_vm_info</span>. This parameter is mandatory.</div>
                 </td>
             </tr>
     </table>
@@ -203,7 +205,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -226,6 +228,7 @@ Examples
     - name: Retrieve the serial ports information from the VM
       vmware.vmware_rest.vcenter_vm_hardware_serial_info:
         vm: '{{ test_vm1_info.id }}'
+      register: _result
 
     - name: Get an existing serial port (label)
       vmware.vmware_rest.vcenter_vm_hardware_serial_info:

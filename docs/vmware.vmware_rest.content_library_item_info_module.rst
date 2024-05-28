@@ -8,7 +8,7 @@ vmware.vmware_rest.content_library_item_info
 **Returns the {@link ItemModel} with the given identifier.**
 
 
-Version added: 2.3.0
+Version added: 2.0.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -187,7 +187,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -227,8 +227,7 @@ Examples
           published: true
           authentication_method: NONE
         storage_backings:
-        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/rw_datastore')\
-            \ }}"
+        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/rw_datastore') }}"
           type: DATASTORE
         state: present
       register: ds_lib
@@ -247,8 +246,7 @@ Examples
           automatic_sync_enabled: false
           on_demand: true
         storage_backings:
-        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/rw_datastore')\
-            \ }}"
+        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/rw_datastore') }}"
           type: DATASTORE
       register: sub_lib
 
@@ -265,8 +263,7 @@ Examples
           published: true
           authentication_method: NONE
         storage_backings:
-        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/local')\
-            \ }}"
+        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/local') }}"
           type: DATASTORE
         state: present
       register: nfs_lib

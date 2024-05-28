@@ -8,7 +8,7 @@ vmware.vmware_rest.vcenter_vm_guest_power
 **Issues a request to the guest operating system asking it to perform a soft shutdown, standby (suspend) or soft reboot**
 
 
-Version added: 2.3.0
+Version added: 0.1.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -182,7 +182,8 @@ Parameters
                 <td>
                 </td>
                 <td>
-                        <div>Identifier of the virtual machine. This parameter is mandatory.</div>
+                        <div>Identifier of the virtual machine.</div>
+                        <div>The parameter must be the id of a resource returned by <span class='module'>vmware.vmware_rest.vcenter_vm_info</span>. This parameter is mandatory.</div>
                 </td>
             </tr>
     </table>
@@ -193,7 +194,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 See Also
@@ -213,13 +214,10 @@ Examples
     - name: Create a VM
       vmware.vmware_rest.vcenter_vm:
         placement:
-          cluster: "{{ lookup('vmware.vmware_rest.cluster_moid', '/my_dc/host/my_cluster')\
-            \ }}"
-          datastore: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/local')\
-            \ }}"
+          cluster: "{{ lookup('vmware.vmware_rest.cluster_moid', '/my_dc/host/my_cluster') }}"
+          datastore: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/local') }}"
           folder: "{{ lookup('vmware.vmware_rest.folder_moid', '/my_dc/vm') }}"
-          resource_pool: "{{ lookup('vmware.vmware_rest.resource_pool_moid', '/my_dc/host/my_cluster/Resources')\
-            \ }}"
+          resource_pool: "{{ lookup('vmware.vmware_rest.resource_pool_moid', '/my_dc/host/my_cluster/Resources') }}"
         name: test_vm1
         guest_OS: RHEL_7_64
         hardware_version: VMX_11
@@ -243,9 +241,7 @@ Examples
         nics:
         - backing:
             type: STANDARD_PORTGROUP
-            network: "{{ lookup('vmware.vmware_rest.network_moid', '/my_dc/network/VM\
-              \ Network') }}"
-
+            network: "{{ lookup('vmware.vmware_rest.network_moid', '/my_dc/network/VM Network') }}"
       register: my_vm
 
     - name: Shut down the VM

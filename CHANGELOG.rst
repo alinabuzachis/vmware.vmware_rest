@@ -5,6 +5,43 @@ vmware.vmware_rest Release Notes
 .. contents:: Topics
 
 
+v3.0.0
+======
+
+Release Summary
+---------------
+
+This major release drops support for ansible-core versions lower than 2.14. The vmware.vmware_rest colllection 3.0.0 supports vSphere versions greater than 7.0.3.
+
+Minor Changes
+-------------
+
+- Use 7.0 U3 API spec to build the modules (https://github.com/ansible-collections/vmware.vmware_rest/pull/449).
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Remove support for ansible-core < 2.14
+
+v2.3.1
+======
+
+Release Summary
+---------------
+
+This release brings some minor changes and bugfixes.
+
+Minor Changes
+-------------
+
+- set version in galaxy.yml to allow install from git repo
+
+Bugfixes
+--------
+
+- Allow filters with the space (See: https://github.com/ansible-collections/vmware.vmware_rest/issues/362).
+- Handle spaces and special characters in resource names for lookup plugins (See: https://github.com/ansible-collections/vmware.vmware_rest/issues/356).
+
 v2.3.0
 ======
 

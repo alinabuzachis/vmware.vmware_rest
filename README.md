@@ -7,7 +7,7 @@ The collection includes the VMware modules and plugins supported by Ansible VMwa
 <!--start requires_ansible-->
 ## Ansible version compatibility
 
-This collection has been tested against following Ansible versions: **>=2.9.10**.
+This collection has been tested against following Ansible versions: **>=2.14.0**.
 
 For collections that support Ansible 2.9, please ensure you update your `network_os` to use the
 fully qualified collection name (for example, `cisco.ios.ios`).
@@ -19,6 +19,7 @@ PEP440 is the schema used to describe the versions of Ansible.
 ## Python version compatibility
 
 The collection depends on ``aiohttp`` has [requirement](https://docs.aiohttp.org/en/stable/) which requires Python 3.6 or greater.
+ Moreover, ansible version >=2.14 supports Python 3.9 or later.
 
 ## vSphere compatibility
 
@@ -140,17 +141,17 @@ Name | Description
 [vmware.vmware_rest.content_locallibrary_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.content_locallibrary_info_module.rst)|Returns a given local library.
 [vmware.vmware_rest.content_subscribedlibrary](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.content_subscribedlibrary_module.rst)|Creates a new subscribed library
 [vmware.vmware_rest.content_subscribedlibrary_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.content_subscribedlibrary_info_module.rst)|Returns a given subscribed library.
-[vmware.vmware_rest.vcenter_cluster_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_cluster_info_module.rst)|Retrieves information about the cluster corresponding to {@param.name cluster}.
+[vmware.vmware_rest.vcenter_cluster_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_cluster_info_module.rst)|Retrieves information about the cluster corresponding to cluster.
 [vmware.vmware_rest.vcenter_datacenter](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_datacenter_module.rst)|Create a new datacenter in the vCenter inventory
-[vmware.vmware_rest.vcenter_datacenter_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_datacenter_info_module.rst)|Retrieves information about the datacenter corresponding to {@param.name datacenter}.
-[vmware.vmware_rest.vcenter_datastore_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_datastore_info_module.rst)|Retrieves information about the datastore indicated by {@param.name datastore}.
-[vmware.vmware_rest.vcenter_folder_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_folder_info_module.rst)|Returns information about at most 1000 visible (subject to permission checks) folders in vCenter matching the {@link FilterSpec}.
+[vmware.vmware_rest.vcenter_datacenter_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_datacenter_info_module.rst)|Retrieves information about the datacenter corresponding to datacenter.
+[vmware.vmware_rest.vcenter_datastore_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_datastore_info_module.rst)|Retrieves information about the datastore indicated by datastore.
+[vmware.vmware_rest.vcenter_folder_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_folder_info_module.rst)|Returns information about at most 1000 visible (subject to permission checks) folders in vCenter matching the Folder.FilterSpec.
 [vmware.vmware_rest.vcenter_host](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_host_module.rst)|Add a new standalone host in the vCenter inventory
-[vmware.vmware_rest.vcenter_host_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_host_info_module.rst)|Returns information about at most 2500 visible (subject to permission checks) hosts in vCenter matching the {@link FilterSpec}.
-[vmware.vmware_rest.vcenter_network_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_network_info_module.rst)|Returns information about at most 1000 visible (subject to permission checks) networks in vCenter matching the {@link FilterSpec}.
+[vmware.vmware_rest.vcenter_host_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_host_info_module.rst)|Returns information about at most 2500 visible (subject to permission checks) hosts in vCenter matching the Host.FilterSpec.
+[vmware.vmware_rest.vcenter_network_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_network_info_module.rst)|Returns information about at most 1000 visible (subject to permission checks) networks in vCenter matching the Network.FilterSpec.
 [vmware.vmware_rest.vcenter_ovf_libraryitem](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_ovf_libraryitem_module.rst)|Creates a library item in content library from a virtual machine or virtual appliance
 [vmware.vmware_rest.vcenter_resourcepool](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_resourcepool_module.rst)|Creates a resource pool.
-[vmware.vmware_rest.vcenter_resourcepool_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_resourcepool_info_module.rst)|Retrieves information about the resource pool indicated by {@param.name resourcePool}.
+[vmware.vmware_rest.vcenter_resourcepool_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_resourcepool_info_module.rst)|Retrieves information about the resource pool indicated by resourcePool.
 [vmware.vmware_rest.vcenter_storage_policies_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_storage_policies_info_module.rst)|Returns information about at most 1024 visible (subject to permission checks) storage solicies availabe in vCenter
 [vmware.vmware_rest.vcenter_vm](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_module.rst)|Creates a virtual machine.
 [vmware.vmware_rest.vcenter_vm_guest_customization](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_guest_customization_module.rst)|Applies a customization specification on the virtual machine
@@ -194,7 +195,7 @@ Name | Description
 [vmware.vmware_rest.vcenter_vm_power](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_power_module.rst)|Operate a boot, hard shutdown, hard reset or hard suspend on a guest.
 [vmware.vmware_rest.vcenter_vm_power_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_power_info_module.rst)|Returns the power state information of a virtual machine.
 [vmware.vmware_rest.vcenter_vm_storage_policy](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_storage_policy_module.rst)|Updates the storage policy configuration of a virtual machine and/or its associated virtual hard disks.
-[vmware.vmware_rest.vcenter_vm_storage_policy_compliance](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_storage_policy_compliance_module.rst)|Returns the storage policy Compliance {@link Info} of a virtual machine after explicitly re-computing compliance check.
+[vmware.vmware_rest.vcenter_vm_storage_policy_compliance](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_storage_policy_compliance_module.rst)|Returns the storage policy Compliance Compliance.Info of a virtual machine after explicitly re-computing compliance check.
 [vmware.vmware_rest.vcenter_vm_storage_policy_compliance_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_storage_policy_compliance_info_module.rst)|Returns the cached storage policy compliance information of a virtual machine.
 [vmware.vmware_rest.vcenter_vm_storage_policy_info](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_storage_policy_info_module.rst)|Returns Information about Storage Policy associated with a virtual machine's home directory and/or its virtual hard disks.
 [vmware.vmware_rest.vcenter_vm_tools](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/docs/vmware.vmware_rest.vcenter_vm_tools_module.rst)|Update the properties of VMware Tools.
@@ -208,23 +209,11 @@ Name | Description
 
 ### Documentation
 
-The [VMware REST modules guide](https://docs.ansible.com/ansible/devel/scenario_guides/guide_vmware_rest.html) gives a step by step introduction of the collection.
+The [VMware REST modules guide](https://docs.ansible.com/ansible/devel/collections/vmware/vmware_rest/docsite/guide_vmware_rest.html) gives a step by step introduction of the collection.
 
-## Testing and Development
+## Development
 
-Please, don't open Pull Request against the [vmware_rest](https://github.com/ansible-collections/vmware_rest) repository.
-We use a project called [vmware_rest_code_generate](https://github.com/ansible-collections/vmware_rest_code_generator) to generate these modules and your change would be lost.
-
-
-### Testing with `ansible-test`
-
-
-```
-virtualenv -p python3.7 .virtualenv/py37  # Or any other version greater than 3.6
-source .virtualenv/py37/bin/activate
-pip install -r requirements.txt -r test-requirements.txt
-ansible-test network-integration --python 3.7 --inventory /tmp/inventory-vmware_rest vcenter_vm_scenario1
-```
+This collection can be generated using the [content_builder](https://github.com/ansible-community/ansible.content_builder) tool. Please refer to the [vmware module generation](https://github.com/ansible-collections/vmware.vmware_rest/blob/main/development.md).
 
 ## Release notes
 

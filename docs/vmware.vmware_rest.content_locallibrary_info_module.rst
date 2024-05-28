@@ -8,7 +8,7 @@ vmware.vmware_rest.content_locallibrary_info
 **Returns a given local library.**
 
 
-Version added: 2.3.0
+Version added: 2.0.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -172,7 +172,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -180,13 +180,6 @@ Examples
 --------
 
 .. code-block:: yaml
-
-    - name: Build a list of local libraries
-      vmware.vmware_rest.content_locallibrary_info:
-      register: result
-      retries: 100
-      delay: 3
-      until: result is not failed
 
     - name: List Local Content Library
       vmware.vmware_rest.content_locallibrary_info:
@@ -204,8 +197,7 @@ Examples
           published: true
           authentication_method: NONE
         storage_backings:
-        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/rw_datastore')\
-            \ }}"
+        - datastore_id: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/rw_datastore') }}"
           type: DATASTORE
         state: present
       register: ds_lib

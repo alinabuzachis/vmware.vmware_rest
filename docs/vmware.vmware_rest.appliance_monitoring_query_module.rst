@@ -8,7 +8,7 @@ vmware.vmware_rest.appliance_monitoring_query
 **Get monitoring data.**
 
 
-Version added: 2.3.0
+Version added: 2.0.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -76,7 +76,7 @@ Parameters
                         </ul>
                 </td>
                 <td>
-                        <div><code>function_type</code> Defines aggregation function This parameter is mandatory.</div>
+                        <div><em>function_type</em> enumerated type Defines aggregation function This parameter is mandatory.</div>
                 </td>
             </tr>
             <tr>
@@ -99,7 +99,7 @@ Parameters
                         </ul>
                 </td>
                 <td>
-                        <div><code>interval_type</code> Defines interval between the values in hours and mins,                    for which aggregation will apply This parameter is mandatory.</div>
+                        <div><em>interval_type</em> enumerated type Defines interval between the values in hours and mins, for which aggregation will apply This parameter is mandatory.</div>
                 </td>
             </tr>
             <tr>
@@ -116,7 +116,8 @@ Parameters
                 <td>
                 </td>
                 <td>
-                        <div>monitored item IDs Ex: CPU, MEMORY This parameter is mandatory.</div>
+                        <div>monitored item IDs Ex: CPU, MEMORY</div>
+                        <div>When clients pass a value of this structure as a parameter, the field must contain the id of resources returned by <span class='module'>vmware.vmware_rest.appliance_monitoring_info</span>.</div>
                 </td>
             </tr>
             <tr>
@@ -251,7 +252,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -262,8 +263,8 @@ Examples
 
     - name: Query the monitoring backend
       vmware.vmware_rest.appliance_monitoring_query:
-        end_time: 2021-04-14T09:34:56Z
-        start_time: 2021-04-14T08:34:56Z
+        end_time: 2021-04-14 09:34:56+00:00
+        start_time: 2021-04-14 08:34:56+00:00
         names:
         - mem.total
         interval: MINUTES5

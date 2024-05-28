@@ -12,6 +12,8 @@ name: network_moid
 short_description: Look up MoID for vSphere network objects using vCenter REST API
 description:
     - Returns Managed Object Reference (MoID) of the vSphere network object contained in the specified path.
+    - This lookup cannot distinguish between multiple networks with the same name defined in multiple switches
+      as that is not supported by the vSphere REST API; network names must be unique within a given datacenter/folder path.
 author:
     - Alina Buzachis (@alinabuzachis)
 version_added: 2.1.0
@@ -49,18 +51,15 @@ _raw:
 """
 
 
-from ansible_collections.vmware.vmware_rest.plugins.plugin_utils.lookup import (
-    Lookup,
-    get_credentials,
-)
 from ansible_collections.cloud.common.plugins.plugin_utils.turbo.lookup import (
     TurboLookupBase as LookupBase,
 )
+from ansible_collections.vmware.vmware_rest.plugins.plugin_utils.lookup import Lookup
 
 
 class LookupModule(LookupBase):
     async def _run(self, terms, variables, **kwargs):
-        self.set_options(var_options=variables, direct=get_credentials(**kwargs))
+        self.set_options(var_options=variables, direct=kwargs)
         self.set_option("object_type", "network")
         result = await Lookup.entry_point(terms, self._options)
         return [result]

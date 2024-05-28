@@ -8,7 +8,7 @@ vmware.vmware_rest.content_subscribedlibrary_info
 **Returns a given subscribed library.**
 
 
-Version added: 2.3.0
+Version added: 2.0.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -172,7 +172,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -180,10 +180,6 @@ Examples
 --------
 
 .. code-block:: yaml
-
-    - name: Build a list of subscribed libraries
-      vmware.vmware_rest.content_subscribedlibrary_info:
-      register: result
 
     - name: List Subscribed Content Library
       vmware.vmware_rest.content_subscribedlibrary_info:

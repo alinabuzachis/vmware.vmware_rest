@@ -8,7 +8,7 @@ vmware.vmware_rest.appliance_ntp_info
 **Get the NTP configuration status**
 
 
-Version added: 2.3.0
+Version added: 2.0.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -157,7 +157,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -171,17 +171,6 @@ Examples
 
     - name: Get the NTP configuration
       vmware.vmware_rest.appliance_ntp_info:
-      register: result
-
-    - name: Get the NTP configuration
-      vmware.vmware_rest.appliance_ntp_info:
-        vcenter_hostname: '{{ vcsa_host }}'
-      delegate_to: localhost
-
-    - name: Get the NTP configuration
-      vmware.vmware_rest.appliance_ntp_info:
-        vcenter_hostname: '{{ vcsa_host }}'
-      delegate_to: localhost
       register: result
 
 

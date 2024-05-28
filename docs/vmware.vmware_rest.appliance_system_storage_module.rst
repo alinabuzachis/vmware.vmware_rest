@@ -8,7 +8,7 @@ vmware.vmware_rest.appliance_system_storage
 **Resize all partitions to 100 percent of disk size.**
 
 
-Version added: 2.3.0
+Version added: 2.0.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -176,7 +176,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -185,8 +185,7 @@ Examples
 
 .. code-block:: yaml
 
-    - name: Resize the first partition and return the state of the partition before and
-        after the operation
+    - name: Resize the first partition and return the state of the partition before and after the operation
       vmware.vmware_rest.appliance_system_storage:
         state: resize_ex
       register: result

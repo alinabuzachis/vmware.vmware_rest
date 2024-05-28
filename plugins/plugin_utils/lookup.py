@@ -8,19 +8,17 @@ __metaclass__ = type
 
 
 import asyncio
-import os
+import urllib
 
-from ansible.module_utils._text import to_native
 from ansible.errors import AnsibleLookupError
-
+from ansible.module_utils._text import to_native
 from ansible_collections.cloud.common.plugins.module_utils.turbo.exceptions import (
     EmbeddedModuleFailure,
 )
 from ansible_collections.vmware.vmware_rest.plugins.module_utils.vmware_rest import (
-    open_session,
     gen_args,
+    open_session,
 )
-
 
 INVENTORY = {
     "resource_pool": {
@@ -114,47 +112,24 @@ INVENTORY = {
 }
 
 
-def get_credentials(**options):
-    credentials = {}
-    credentials["vcenter_hostname"] = options.get("vcenter_hostname") or os.getenv(
-        "VMWARE_HOST"
-    )
-    credentials["vcenter_username"] = options.get("vcenter_username") or os.getenv(
-        "VMWARE_USER"
-    )
-    credentials["vcenter_password"] = options.get("vcenter_password") or os.getenv(
-        "VMWARE_PASSWORD"
-    )
-    credentials["vcenter_validate_certs"] = options.get(
-        "vcenter_validate_certs"
-    ) or os.getenv("VMWARE_VALIDATE_CERTS")
-    credentials["vcenter_rest_log_file"] = options.get(
-        "vcenter_rest_log_file"
-    ) or os.getenv("VMWARE_REST_LOG_FILE")
-    return credentials
-
-
 class Lookup:
     def __init__(self, options):
         self._options = options
 
     @classmethod
     async def entry_point(cls, terms, options):
+        if not terms or not terms[0]:
+            raise AnsibleLookupError(
+                "Option _terms is required but no object has been specified"
+            )
         session = None
-
-        if not options.get("vcenter_hostname"):
-            raise AnsibleLookupError("vcenter_hostname cannot be empty")
-        if not options.get("vcenter_username"):
-            raise AnsibleLookupError("vcenter_username cannot be empty")
-        if not options.get("vcenter_password"):
-            raise AnsibleLookupError("vcenter_password cannot be empty")
 
         try:
             session = await open_session(
-                vcenter_hostname=options.get("vcenter_hostname"),
-                vcenter_username=options.get("vcenter_username"),
-                vcenter_password=options.get("vcenter_password"),
-                validate_certs=bool(options.get("vcenter_validate_certs")),
+                vcenter_hostname=options["vcenter_hostname"],
+                vcenter_username=options["vcenter_username"],
+                vcenter_password=options["vcenter_password"],
+                validate_certs=options.get("vcenter_validate_certs"),
                 log_file=options.get("vcenter_rest_log_file"),
             )
         except EmbeddedModuleFailure as e:
@@ -164,9 +139,6 @@ class Lookup:
 
         lookup = cls(options)
         lookup._options["session"] = session
-
-        if not terms:
-            raise AnsibleLookupError("No object has been specified.")
 
         task = asyncio.ensure_future(lookup.moid(terms[0]))
 
@@ -197,7 +169,16 @@ class Lookup:
 
     @staticmethod
     def ensure_result(result, object_type, object_name=None):
-        if not result or object_name and object_name not in result[0].values():
+        object_name_decoded = None
+
+        if object_name:
+            object_name_decoded = urllib.parse.unquote(object_name)
+
+        if (
+            not result
+            or object_name_decoded
+            and object_name_decoded not in result[0].values()
+        ):
             return ""
 
         def _filter_result(result):
@@ -445,10 +426,6 @@ class Lookup:
 
         return cluster_moid, object_path[1:]
 
-    @staticmethod
-    def replace_space(string):
-        return string
-
     async def get_all_objects_path_moid(self, object_path, object_type, filters):
         # GET MoID of all the objects specified in the path
         filters["names"] = list(set(object_path))
@@ -554,7 +531,6 @@ class Lookup:
 
         # Split object_path for transversal
         self._options["_terms"] = object_path
-        object_path = self.replace_space(object_path)
         object_type = self._options["object_type"]
         path = tuple(filter(None, object_path.split("/")))
 

@@ -8,7 +8,7 @@ vmware.vmware_rest.vcenter_vm_info
 **Returns information about a virtual machine.**
 
 
-Version added: 2.3.0
+Version added: 0.1.0
 
 .. contents::
    :local:
@@ -25,7 +25,7 @@ Requirements
 ------------
 The below requirements are needed on the host that executes this module.
 
-- vSphere 7.0.2 or greater
+- vSphere 7.0.3 or greater
 - python >= 3.6
 - aiohttp
 
@@ -55,6 +55,8 @@ Parameters
                 </td>
                 <td>
                         <div>Clusters that must contain the virtual machine for the virtual machine to match the filter.</div>
+                        <div>If unset or empty, virtual machines in any cluster match the filter.</div>
+                        <div>When clients pass a value of this structure as a parameter, the field must contain the id of resources returned by <span class='module'>vmware.vmware_rest.vcenter_cluster_info</span>.</div>
                 </td>
             </tr>
             <tr>
@@ -71,6 +73,8 @@ Parameters
                 </td>
                 <td>
                         <div>Datacenters that must contain the virtual machine for the virtual machine to match the filter.</div>
+                        <div>If unset or empty, virtual machines in any datacenter match the filter.</div>
+                        <div>When clients pass a value of this structure as a parameter, the field must contain the id of resources returned by <span class='module'>vmware.vmware_rest.vcenter_datacenter_info</span>.</div>
                         <div style="font-size: small; color: darkgreen"><br/>aliases: filter_datacenters</div>
                 </td>
             </tr>
@@ -88,6 +92,8 @@ Parameters
                 </td>
                 <td>
                         <div>Folders that must contain the virtual machine for the virtual machine to match the filter.</div>
+                        <div>If unset or empty, virtual machines in any folder match the filter.</div>
+                        <div>When clients pass a value of this structure as a parameter, the field must contain the id of resources returned by <span class='module'>vmware.vmware_rest.vcenter_folder_info</span>.</div>
                         <div style="font-size: small; color: darkgreen"><br/>aliases: filter_folders</div>
                 </td>
             </tr>
@@ -105,6 +111,8 @@ Parameters
                 </td>
                 <td>
                         <div>Hosts that must contain the virtual machine for the virtual machine to match the filter.</div>
+                        <div>If unset or empty, virtual machines on any host match the filter.</div>
+                        <div>When clients pass a value of this structure as a parameter, the field must contain the id of resources returned by <span class='module'>vmware.vmware_rest.vcenter_host_info</span>.</div>
                 </td>
             </tr>
             <tr>
@@ -120,7 +128,8 @@ Parameters
                 <td>
                 </td>
                 <td>
-                        <div>Names that virtual machines must have to match the filter (see {@link Info#name}).</div>
+                        <div>Names that virtual machines must have to match the filter (see <em>name</em>).</div>
+                        <div>If unset or empty, virtual machines with any name match the filter.</div>
                         <div style="font-size: small; color: darkgreen"><br/>aliases: filter_names</div>
                 </td>
             </tr>
@@ -137,7 +146,8 @@ Parameters
                 <td>
                 </td>
                 <td>
-                        <div>Power states that a virtual machine must be in to match the filter (see {@link <em>info</em>#state}.</div>
+                        <div>Power states that a virtual machine must be in to match the filter (see I()</div>
+                        <div>If unset or empty, virtual machines in any power state match the filter.</div>
                 </td>
             </tr>
             <tr>
@@ -154,6 +164,8 @@ Parameters
                 </td>
                 <td>
                         <div>Resource pools that must contain the virtual machine for the virtual machine to match the filter.</div>
+                        <div>If unset or empty, virtual machines in any resource pool match the filter.</div>
+                        <div>When clients pass a value of this structure as a parameter, the field must contain the id of resources returned by <span class='module'>vmware.vmware_rest.vcenter_resourcepool_info</span>.</div>
                 </td>
             </tr>
             <tr>
@@ -276,7 +288,8 @@ Parameters
                 <td>
                 </td>
                 <td>
-                        <div>Virtual machine identifier. Required with <em>state=[&#x27;get&#x27;]</em></div>
+                        <div>Virtual machine identifier.</div>
+                        <div>The parameter must be the id of a resource returned by <span class='module'>vmware.vmware_rest.vcenter_vm_info</span>. Required with <em>state=[&#x27;get&#x27;]</em></div>
                 </td>
             </tr>
             <tr>
@@ -293,6 +306,8 @@ Parameters
                 </td>
                 <td>
                         <div>Identifiers of virtual machines that can match the filter.</div>
+                        <div>If unset or empty, virtual machines with any identifier match the filter.</div>
+                        <div>When clients pass a value of this structure as a parameter, the field must contain the id of resources returned by <span class='module'>vmware.vmware_rest.vcenter_vm_info</span>.</div>
                 </td>
             </tr>
     </table>
@@ -303,7 +318,7 @@ Notes
 -----
 
 .. note::
-   - Tested on vSphere 7.0.2
+   - Tested on vSphere 7.0.3
 
 
 
@@ -312,36 +327,13 @@ Examples
 
 .. code-block:: yaml
 
-    - name: Search with an invalid filter
-      vmware.vmware_rest.vcenter_vm_info:
-        filter_names: test_vm1_does_not_exists
-
-    - name: Look up the VM called test_vm1 in the inventory
-      register: search_result
-      vmware.vmware_rest.vcenter_vm_info:
-        filter_names:
-        - test_vm1
-
-    - name: Collect information about a specific VM
-      vmware.vmware_rest.vcenter_vm_info:
-        vm: '{{ search_result.value[0].vm }}'
-      register: test_vm1_info
-
-    - name: Collect the list of the existing VM
-      vmware.vmware_rest.vcenter_vm_info:
-      register: existing_vms
-      until: existing_vms is not failed
-
     - name: Create a VM
       vmware.vmware_rest.vcenter_vm:
         placement:
-          cluster: "{{ lookup('vmware.vmware_rest.cluster_moid', '/my_dc/host/my_cluster')\
-            \ }}"
-          datastore: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/local')\
-            \ }}"
+          cluster: "{{ lookup('vmware.vmware_rest.cluster_moid', '/my_dc/host/my_cluster') }}"
+          datastore: "{{ lookup('vmware.vmware_rest.datastore_moid', '/my_dc/datastore/local') }}"
           folder: "{{ lookup('vmware.vmware_rest.folder_moid', '/my_dc/vm') }}"
-          resource_pool: "{{ lookup('vmware.vmware_rest.resource_pool_moid', '/my_dc/host/my_cluster/Resources')\
-            \ }}"
+          resource_pool: "{{ lookup('vmware.vmware_rest.resource_pool_moid', '/my_dc/host/my_cluster/Resources') }}"
         name: test_vm1
         guest_OS: RHEL_7_64
         hardware_version: VMX_11
@@ -365,9 +357,7 @@ Examples
         nics:
         - backing:
             type: STANDARD_PORTGROUP
-            network: "{{ lookup('vmware.vmware_rest.network_moid', '/my_dc/network/VM\
-              \ Network') }}"
-
+            network: "{{ lookup('vmware.vmware_rest.network_moid', '/my_dc/network/VM Network') }}"
       register: my_vm
 
     - name: Wait until my VM is off
@@ -379,6 +369,22 @@ Examples
       - vm_info.value.power_state == "POWERED_OFF"
       retries: 60
       delay: 5
+
+    - register: _should_be_empty
+      name: Search with an invalid filter
+      vmware.vmware_rest.vcenter_vm_info:
+        filter_names: test_vm1_does_not_exists
+
+    - name: Look up the VM called test_vm1 in the inventory
+      register: search_result
+      vmware.vmware_rest.vcenter_vm_info:
+        filter_names:
+        - test_vm1
+
+    - name: Collect information about a specific VM
+      vmware.vmware_rest.vcenter_vm_info:
+        vm: '{{ search_result.value[0].vm }}'
+      register: test_vm1_info
 
 
 
